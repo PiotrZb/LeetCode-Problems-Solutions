@@ -1,0 +1,19 @@
+import java.util.Arrays;
+
+class Solution {
+    public String convert(String s, int numRows) {
+        if (numRows == 1) return s;
+
+        StringBuilder[] rows = new StringBuilder[numRows];
+        Arrays.setAll(rows, _ -> new StringBuilder());
+        int currRow = 0, dir = 1;
+
+        for (char c : s.toCharArray()) {
+            rows[currRow].append(c);
+            currRow += dir;
+            if (currRow == numRows - 1 || currRow == 0) dir *= -1;
+        }
+
+        return Arrays.stream(rows).reduce(new StringBuilder(), StringBuilder::append).toString();
+    }
+}
